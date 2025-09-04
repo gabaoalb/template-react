@@ -1,17 +1,18 @@
+import { Box } from "@mui/material";
 import { Outlet } from "react-router";
 import { useAppSelector } from "../../context/store/ReduxHooks";
 import type { RootState } from "../../context/store/interface";
-import { Box } from "@mui/material";
 import Header from "./header/Header";
 import Main from "./main/Main";
 import Sidebar from "./sidebar/Sidebar";
 
-const drawerWidth = 240;
-const appBarHeight = 64;
-
 function Layout() {
     const { isAuthenticated } = useAppSelector(
         (state: RootState) => state.auth
+    );
+
+    const { appBarHeight, drawerWidth } = useAppSelector(
+        (state) => state.layout
     );
 
     console.log(isAuthenticated);
@@ -27,7 +28,7 @@ function Layout() {
                       "header header"
                       "sidebar main"
                     `,
-                    height: "100vh",
+                    height: "100vh"
                 }}
             >
                 <Header />

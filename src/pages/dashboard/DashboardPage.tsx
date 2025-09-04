@@ -1,8 +1,10 @@
+import { Stack } from "@mui/material";
+
 function DashboardPage() {
     return (
-        <div>
+        <Stack>
             <h1>Dashboard</h1>
-        </div>
+        </Stack>
     );
 }
 

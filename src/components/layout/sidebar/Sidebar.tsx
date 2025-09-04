@@ -1,7 +1,8 @@
 import { Box, Typography } from "@mui/material";
+import { useAppSelector } from "../../../context/store/ReduxHooks";
 
 function Sidebar() {
-    const appBarHeight = 64; // Altura padrão do AppBar do MUI
+    const { appBarHeight } = useAppSelector((state) => state.layout);
 
     return (
         <Box
@@ -10,6 +11,7 @@ function Sidebar() {
                 flex: 1,
                 pt: `${appBarHeight}px`,
                 gridArea: "sidebar",
+                border: "1px solid blue"
             }}
         >
             {/* SIDEBAR */}
@@ -24,7 +26,7 @@ function Sidebar() {
                     borderColor: "divider",
                     position: "fixed",
                     top: appBarHeight,
-                    left: 0,
+                    left: 0
                 }}
             >
                 {/* Conteúdo da Sidebar */}

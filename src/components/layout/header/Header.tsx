@@ -1,7 +1,7 @@
-import { AppBar, Box, Grid, Toolbar, useTheme } from "@mui/material";
+import Search from "@mui/icons-material/Search";
+import { AppBar, Box, Grid, TextField, Toolbar, useTheme } from "@mui/material";
 
 function Header() {
-    console.log("Header rendered");
     const theme = useTheme();
 
     return (
@@ -16,17 +16,18 @@ function Header() {
                 //     ? theme.transitions.create("width")
                 //     : "none",
                 gridArea: "header",
+                border: "1px solid green"
             }}
         >
-            <Toolbar>
+            <Toolbar sx={{ border: "1px solid orange", p: 2 }}>
                 <Box
                     display="flex"
                     justifyContent="space-between"
                     sx={{
                         width: 214,
                         [theme.breakpoints.down("md")]: {
-                            width: "auto",
-                        },
+                            width: "auto"
+                        }
                     }}
                 >
                     {/* <LogoSection
@@ -46,7 +47,12 @@ function Header() {
                 </Box>
 
                 {/* header search */}
-                <Box sx={{ flexGrow: 1 }}>SearchInput</Box>
+                <Box sx={{ flexGrow: 1 }}>
+                    <TextField />
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <Search size={16} />
+                    </Box>
+                </Box>
                 <Box sx={{ flexGrow: 1 }} />
 
                 {/* notification & profile */}
