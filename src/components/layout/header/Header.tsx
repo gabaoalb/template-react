@@ -1,66 +1,170 @@
+import Menu from "@mui/icons-material/Menu";
+import {
+    AppBar,
+    Box,
+    Grid,
+    InputAdornment,
+    TextField,
+    Toolbar,
+    useTheme,
+} from "@mui/material";
+import HeaderIconButton from "../../buttons/headerIconButton/HeaderIconButton";
+import {
+    useAppDispatch,
+    useAppSelector,
+} from "../../../context/store/ReduxHooks";
+import {
+    DRAWER_WIDTH_OPEN,
+    toggleSidebar,
+} from "../../../context/store/layout/LayoutSlice";
+import type { RootState } from "../../../context/store/interface";
 import Search from "@mui/icons-material/Search";
-import { AppBar, Box, Grid, TextField, Toolbar, useTheme } from "@mui/material";
+import {
+    Fullscreen,
+    Notifications,
+    Sensors,
+    Translate,
+    Tune,
+} from "@mui/icons-material";
 
 function Header() {
     const theme = useTheme();
+
+    const dispatch = useAppDispatch();
+
+    const { leftDrawerOpen } = useAppSelector(
+        (state: RootState) => state.layout
+    );
+
+    const handleMenuClick = () => {
+        dispatch(toggleSidebar(!leftDrawerOpen));
+    };
 
     return (
         <AppBar
             enableColorOnDark
             position="fixed"
-            color="inherit"
+            color="transparent"
             elevation={0}
             sx={{
-                // backgroundColor: theme.palette.background.default,
-                // transition: leftDrawerOpen
-                //     ? theme.transitions.create("width")
-                //     : "none",
                 gridArea: "header",
-                border: "1px solid green"
+                maxHeight: "84px",
             }}
         >
-            <Toolbar sx={{ border: "1px solid orange", p: 2 }}>
+            <Toolbar
+                sx={{
+                    p: 2,
+                    display: "grid",
+                    gridTemplateColumns: "repeat(4, 1fr) auto", // 5 colunas iguais
+                    alignItems: "center", // centraliza verticalmente
+                }}
+            >
+                {/* logo & menu button */}
                 <Box
                     display="flex"
                     justifyContent="space-between"
+                    pr={1}
                     sx={{
-                        width: 214,
+                        width: `calc(${DRAWER_WIDTH_OPEN}px - 24px)`,
                         [theme.breakpoints.down("md")]: {
-                            width: "auto"
-                        }
+                            width: "auto",
+                        },
                     }}
                 >
                     {/* <LogoSection
-                        sx={{
-                            [theme.breakpoints.down("md")]: {
-                                display: "none",
-                            },
-                        }}
-                    /> */}
-                    {/* <ButtonHeader
-                        ButtonProps={{
-                            onClick: () => dispatch(toggleSidebar()),
-                        }}
+                                sx={{
+                                    [theme.breakpoints.down("md")]: {
+                                        display: "none",
+                                    },
+                                }}
+                            /> */}
+                    <Box />
+                    <HeaderIconButton
+                        color={"primary.dark"}
+                        backgroundColor={"rgb(20, 45, 56)"}
+                        hoverBackgroundColor={theme.palette.primary.light}
+                        onClick={handleMenuClick}
                     >
-                        <Icon name="bars" size={16} />
-                    </ButtonHeader> */}
+                        <Menu />
+                    </HeaderIconButton>
                 </Box>
 
                 {/* header search */}
-                <Box sx={{ flexGrow: 1 }}>
-                    <TextField />
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Search size={16} />
-                    </Box>
+                <Box>
+                    <TextField
+                        placeholder="Search"
+                        slotProps={{
+                            input: {
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <Search />
+                                    </InputAdornment>
+                                ),
+                                endAdornment: (
+                                    <HeaderIconButton
+                                        color={"primary.dark"}
+                                        backgroundColor={"rgb(20, 45, 56)"}
+                                        hoverBackgroundColor={
+                                            theme.palette.primary.light
+                                        }
+                                    >
+                                        <Tune />
+                                    </HeaderIconButton>
+                                ),
+                            },
+                        }}
+                        fullWidth
+                    />
                 </Box>
-                <Box sx={{ flexGrow: 1 }} />
 
-                {/* notification & profile */}
+                <Box />
+                <Box />
                 <Grid container spacing={2}>
-                    <Grid>{/* <LanguageSelector /> */}</Grid>
-                </Grid>
-                <Grid sx={{ marginLeft: "16px" }}>
-                    {/* <ProfileSection version={version} /> */}
+                    <Grid>
+                        <HeaderIconButton
+                            color={"primary.dark"}
+                            backgroundColor={"rgb(20, 45, 56)"}
+                            hoverBackgroundColor={theme.palette.primary.light}
+                        >
+                            <Sensors />
+                        </HeaderIconButton>
+                    </Grid>
+                    <Grid>
+                        <HeaderIconButton
+                            color={"secondary.dark"}
+                            backgroundColor={"rgb(20, 45, 56)"}
+                            hoverBackgroundColor={theme.palette.secondary.light}
+                        >
+                            <Translate />
+                        </HeaderIconButton>
+                    </Grid>
+                    <Grid>
+                        <HeaderIconButton
+                            color={"warning.main"}
+                            backgroundColor={"rgb(20, 45, 56)"}
+                            hoverBackgroundColor={"warning.light"}
+                        >
+                            <Notifications />
+                        </HeaderIconButton>
+                    </Grid>
+                    <Grid>
+                        <HeaderIconButton
+                            color={"secondary.dark"}
+                            backgroundColor={"rgb(20, 45, 56)"}
+                            hoverBackgroundColor={theme.palette.secondary.light}
+                        >
+                            <Fullscreen />
+                        </HeaderIconButton>
+                    </Grid>
+                    <Grid>
+                        <HeaderIconButton
+                            color={"primary.dark"}
+                            backgroundColor={"rgb(20, 45, 56)"}
+                            hoverBackgroundColor={theme.palette.primary.light}
+                        >
+                            <Menu />
+                        </HeaderIconButton>
+                    </Grid>
                 </Grid>
             </Toolbar>
         </AppBar>

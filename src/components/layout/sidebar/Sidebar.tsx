@@ -1,32 +1,43 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Drawer, Typography } from "@mui/material";
 import { useAppSelector } from "../../../context/store/ReduxHooks";
 
 function Sidebar() {
-    const { appBarHeight } = useAppSelector((state) => state.layout);
+    const { appBarHeight, leftDrawerOpen, drawerWidth } = useAppSelector(
+        (state) => state.layout
+    );
 
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flex: 1,
-                pt: `${appBarHeight}px`,
-                gridArea: "sidebar",
-                border: "1px solid blue"
-            }}
-        >
-            {/* SIDEBAR */}
-            <Box
+        <Box display="flex" flex={1} gridArea="sidebar">
+            <Drawer
                 component="nav"
+                anchor="left"
+                variant="permanent"
+                open={leftDrawerOpen}
                 sx={{
-                    width: 240,
+                    width: drawerWidth,
                     flexShrink: 0,
-                    height: `calc(100vh - ${appBarHeight}px)`,
-                    overflowY: "auto",
-                    borderRight: 1,
-                    borderColor: "divider",
-                    position: "fixed",
-                    top: appBarHeight,
-                    left: 0
+                    // anima a largura do container do Drawer
+                    transition: (t) =>
+                        t.transitions.create("width", {
+                            duration: t.transitions.duration.standard,
+                            easing: t.transitions.easing.easeInOut,
+                        }),
+                    "& .MuiDrawer-paper": {
+                        backgroundColor: "transparent",
+                        width: drawerWidth,
+                        height: `calc(100vh - ${appBarHeight}px)`,
+                        overflowY: "auto",
+                        position: "fixed",
+                        top: appBarHeight,
+                        left: 0,
+                        border: "none",
+                        // anima a largura da paper (é o elemento visível)
+                        transition: (t) =>
+                            t.transitions.create(["width", "left"], {
+                                duration: t.transitions.duration.standard,
+                                easing: t.transitions.easing.easeInOut,
+                            }),
+                    },
                 }}
             >
                 {/* Conteúdo da Sidebar */}
@@ -36,7 +47,7 @@ function Sidebar() {
                     <Typography>Sidebar Item 3</Typography>
                     {/* adicione lista, menus, etc */}
                 </Box>
-            </Box>
+            </Drawer>
         </Box>
     );
 }

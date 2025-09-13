@@ -1,11 +1,14 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { LayoutState } from "./interface";
 
+export const DRAWER_WIDTH_OPEN = 260;
+export const DRAWER_WIDTH_CLOSED = 72;
+
 const initialState: LayoutState = {
     appBarHeight: 83,
-    leftDrawerOpen: false,
-    drawerWidth: 260,
-    themeDrawerOpen: false
+    leftDrawerOpen: true,
+    drawerWidth: DRAWER_WIDTH_OPEN,
+    themeDrawerOpen: false,
 };
 
 export const layoutSlice = createSlice({
@@ -13,10 +16,18 @@ export const layoutSlice = createSlice({
     initialState,
     reducers: {
         toggleSidebar: (state, action: PayloadAction<boolean>) => {
+            console.log("toggleSidebar action.payload:", action.payload);
             state.leftDrawerOpen = action.payload;
+            if (state.leftDrawerOpen) {
+                state.drawerWidth = DRAWER_WIDTH_OPEN;
+            } else {
+                state.drawerWidth = DRAWER_WIDTH_CLOSED;
+            }
         },
         toggleThemeDrawer: (state, action: PayloadAction<boolean>) => {
             state.themeDrawerOpen = action.payload;
-        }
-    }
+        },
+    },
 });
+
+export const { toggleSidebar, toggleThemeDrawer } = layoutSlice.actions;

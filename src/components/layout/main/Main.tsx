@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import type { PropsWithChildren } from "react";
 
 function Main({ children }: PropsWithChildren) {
@@ -11,12 +11,12 @@ function Main({ children }: PropsWithChildren) {
                 mr: 2,
                 gridArea: "main",
                 overflowY: "auto",
-                border: "1px solid red",
                 borderTopRightRadius: (theme) => theme.shape.borderRadius,
-                borderTopLeftRadius: (theme) => theme.shape.borderRadius
+                borderTopLeftRadius: (theme) => theme.shape.borderRadius,
+                backgroundColor: "rgb(14, 27, 35)",
             }}
         >
-            {children}
+            <Container>{children}</Container>
         </Box>
     );
 }
