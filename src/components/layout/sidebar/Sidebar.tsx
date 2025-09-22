@@ -1,5 +1,7 @@
-import { Box, Drawer, Typography } from "@mui/material";
+import { Box, Drawer } from "@mui/material";
 import { useAppSelector } from "../../../context/store/ReduxHooks";
+import { sidebarItems } from "./sidebar-items";
+import SidebarList from "./sidebarList/SidebarList";
 
 function Sidebar() {
     const { appBarHeight, leftDrawerOpen, drawerWidth } = useAppSelector(
@@ -23,6 +25,7 @@ function Sidebar() {
                             easing: t.transitions.easing.easeInOut,
                         }),
                     "& .MuiDrawer-paper": {
+                        px: 2,
                         backgroundColor: "transparent",
                         width: drawerWidth,
                         height: `calc(100vh - ${appBarHeight}px)`,
@@ -40,13 +43,7 @@ function Sidebar() {
                     },
                 }}
             >
-                {/* Conteúdo da Sidebar */}
-                <Box p={2}>
-                    <Typography>Sidebar Item 1</Typography>
-                    <Typography>Sidebar Item 2</Typography>
-                    <Typography>Sidebar Item 3</Typography>
-                    {/* adicione lista, menus, etc */}
-                </Box>
+                <SidebarList sidebarItems={sidebarItems} />
             </Drawer>
         </Box>
     );
