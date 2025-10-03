@@ -11,11 +11,7 @@ function Layout() {
         (state: RootState) => state.auth
     );
 
-    const { appBarHeight, drawerWidth } = useAppSelector(
-        (state) => state.layout
-    );
-
-    console.log(isAuthenticated);
+    const { appBarHeight } = useAppSelector((state) => state.layout);
 
     if (isAuthenticated) {
         return (
@@ -23,12 +19,12 @@ function Layout() {
                 sx={{
                     display: "grid",
                     gridTemplateRows: `${appBarHeight}px 1fr`, // linha 1: AppBar | linha 2: resto
-                    gridTemplateColumns: `${drawerWidth}px 1fr`, // col 1: sidebar | col 2: main
+                    gridTemplateColumns: `0 1fr`, // col 1: sidebar | col 2: main
                     gridTemplateAreas: `
                       "header header"
                       "sidebar main"
                     `,
-                    height: "100vh"
+                    height: "100vh",
                 }}
             >
                 <Header />

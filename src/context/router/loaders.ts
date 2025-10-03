@@ -1,9 +1,8 @@
 import { redirect } from "react-router";
-import { store } from "../store/Store";
+import type { LoadersPayload } from "./interface";
 
-export function requireAuth<T>(loader?: () => Promise<T>) {
+export function requireAuth<T>({ isAuthenticated, loader }: LoadersPayload<T>) {
     return async () => {
-        const { isAuthenticated } = store.getState().auth;
         if (!isAuthenticated) {
             throw redirect("/login");
         }
@@ -11,9 +10,11 @@ export function requireAuth<T>(loader?: () => Promise<T>) {
     };
 }
 
-export function requireNoAuth<T>(loader?: () => Promise<T>) {
+export function requireNoAuth<T>({
+    isAuthenticated,
+    loader,
+}: LoadersPayload<T>) {
     return async () => {
-        const { isAuthenticated } = store.getState().auth;
         if (isAuthenticated) {
             throw redirect("/dashboard");
         }

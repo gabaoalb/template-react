@@ -21,8 +21,6 @@ function SidebarList({ sidebarItems }: { sidebarItems: SidebarElement[] }) {
     const location = useLocation();
     const currentPath = location.pathname;
 
-    console.log("Current Path:", currentPath);
-
     return sidebarItems.map((item) => {
         if (isSidebarGroup(item)) {
             return (
@@ -42,9 +40,7 @@ function SidebarList({ sidebarItems }: { sidebarItems: SidebarElement[] }) {
                                 </>
                             ) : null
                         }
-                        sx={{
-                            py: 0,
-                        }}
+                        sx={{ py: 0 }}
                     >
                         <SidebarList sidebarItems={item.children} />
                     </List>

@@ -7,8 +7,11 @@ import Layout from "../../components/layout/Layout";
 import DashboardPage from "../../pages/dashboard/DashboardPage";
 import AuthPage from "../../pages/auth/AuthPage";
 import { requireAuth, requireNoAuth } from "./loaders";
+import { useAppSelector } from "../store/ReduxHooks";
 
 function RouterProvider() {
+    const { isAuthenticated } = useAppSelector((state) => state.auth);
+
     const router = createBrowserRouter([
         {
             path: "/",
@@ -22,14 +25,17 @@ function RouterProvider() {
                 },
                 {
                     path: "dashboard",
-                    loader: requireAuth(async () => {
-                        // fetch dashboard data
+                    loader: requireAuth({
+                        isAuthenticated,
+                        loader: async () => {
+                            // fetch dashboard data
+                        },
                     }),
                     Component: DashboardPage,
                 },
                 {
                     path: "login",
-                    loader: requireNoAuth(),
+                    loader: requireNoAuth({ isAuthenticated }),
                     Component: AuthPage,
                 },
             ],

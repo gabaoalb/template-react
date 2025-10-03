@@ -3,9 +3,10 @@ import type { LayoutState } from "./interface";
 
 export const DRAWER_WIDTH_OPEN = 260;
 export const DRAWER_WIDTH_CLOSED = 72;
+export const APP_BAR_HEIGHT = 83;
 
 const initialState: LayoutState = {
-    appBarHeight: 83,
+    appBarHeight: APP_BAR_HEIGHT,
     leftDrawerOpen: true,
     drawerWidth: DRAWER_WIDTH_OPEN,
     themeDrawerOpen: false,
@@ -16,7 +17,6 @@ export const layoutSlice = createSlice({
     initialState,
     reducers: {
         toggleSidebar: (state, action: PayloadAction<boolean>) => {
-            console.log("toggleSidebar action.payload:", action.payload);
             state.leftDrawerOpen = action.payload;
             if (state.leftDrawerOpen) {
                 state.drawerWidth = DRAWER_WIDTH_OPEN;

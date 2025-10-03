@@ -26,6 +26,7 @@ function Sidebar() {
                         }),
                     "& .MuiDrawer-paper": {
                         px: 2,
+                        pt: leftDrawerOpen ? 0 : 1,
                         backgroundColor: "transparent",
                         width: drawerWidth,
                         height: `calc(100vh - ${appBarHeight}px)`,

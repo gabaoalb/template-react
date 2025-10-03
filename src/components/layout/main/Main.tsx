@@ -1,7 +1,10 @@
 import { Box, Container } from "@mui/material";
 import type { PropsWithChildren } from "react";
+import { useAppSelector } from "../../../context/store/ReduxHooks";
 
 function Main({ children }: PropsWithChildren) {
+    const { drawerWidth } = useAppSelector((s) => s.layout);
+
     return (
         <Box
             component="main"
@@ -11,9 +14,16 @@ function Main({ children }: PropsWithChildren) {
                 mr: 2,
                 gridArea: "main",
                 overflowY: "auto",
-                borderTopRightRadius: (theme) => theme.shape.borderRadius,
-                borderTopLeftRadius: (theme) => theme.shape.borderRadius,
+                borderTopRightRadius: (t) => t.shape.borderRadius,
+                borderTopLeftRadius: (t) => t.shape.borderRadius,
                 backgroundColor: "rgb(14, 27, 35)",
+                marginLeft: `${drawerWidth}px`,
+                transition: (t) =>
+                    t.transitions.create(["margin"], {
+                        duration: t.transitions.duration.standard,
+                        easing: t.transitions.easing.easeInOut,
+                    }),
+                willChange: "margin",
             }}
         >
             <Container>{children}</Container>
