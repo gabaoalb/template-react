@@ -27,13 +27,10 @@ import {
 import { authSchema, type AuthFormData } from "./schema";
 import { useAppDispatch } from "../../context/store/ReduxHooks";
 import { login } from "../../context/store/auth/AuthSlice";
-import { useNavigate } from "react-router";
 
 function AuthPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
-
-    const navigate = useNavigate();
 
     const {
         register,
@@ -64,8 +61,14 @@ function AuthPage() {
                 justifyContent: "center",
             }}
         >
-            <Card sx={{ width: { xs: "100%", sm: 420 }, mx: 2 }} elevation={6}>
-                <CardContent>
+            <Card
+                elevation={6}
+                sx={{
+                    width: { xs: "100%", sm: 420 },
+                    mx: 2,
+                }}
+            >
+                <CardContent sx={{ backgroundColor: "#14252f" }}>
                     <Stack
                         spacing={3}
                         component="form"
@@ -176,10 +179,7 @@ function AuthPage() {
                         <Divider />
 
                         <Box display={"flex"} justifyContent="center">
-                            <Button
-                                variant="text"
-                                onClick={() => navigate("/dashboard")}
-                            >
+                            <Button variant="text" onClick={() => {}}>
                                 Don't have an account?
                             </Button>
                         </Box>
