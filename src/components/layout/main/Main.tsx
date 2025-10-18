@@ -1,9 +1,9 @@
 import { Box, Container } from "@mui/material";
 import type { PropsWithChildren } from "react";
-import { useAppSelector } from "../../../context/store/ReduxHooks";
+import { useLayout } from "../../../context/layout/useLayout";
 
 function Main({ children }: PropsWithChildren) {
-    const { drawerWidth } = useAppSelector((s) => s.layout);
+    const { drawerWidth } = useLayout();
 
     return (
         <Box

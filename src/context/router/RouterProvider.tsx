@@ -7,10 +7,10 @@ import Layout from "../../components/layout/Layout";
 import DashboardPage from "../../pages/dashboard/DashboardPage";
 import AuthPage from "../../pages/auth/AuthPage";
 import { requireAuth, requireNoAuth } from "./loaders";
-import { useAppSelector } from "../store/ReduxHooks";
+import { useAuth } from "../auth/useAuth";
 
 function RouterProvider() {
-    const { isAuthenticated } = useAppSelector((state) => state.auth);
+    const { isAuthenticated } = useAuth();
 
     const router = createBrowserRouter([
         {

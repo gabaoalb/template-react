@@ -1,18 +1,20 @@
-import { Provider } from "react-redux";
 import RouterProvider from "./router/RouterProvider";
 import ThemeProvider from "./theme/ThemeProvider";
-import { store } from "./store/Store";
 import ModalsProvider from "./modals/ModalsProvider";
+import AuthProvider from "./auth/AuthProvider";
+import LayoutProvider from "./layout/LayoutProvider";
 
 function RootProvider(): React.JSX.Element {
     return (
-        <Provider store={store}>
+        <AuthProvider>
             <ThemeProvider>
-                <ModalsProvider>
-                    <RouterProvider />
-                </ModalsProvider>
+                <LayoutProvider>
+                    <ModalsProvider>
+                        <RouterProvider />
+                    </ModalsProvider>
+                </LayoutProvider>
             </ThemeProvider>
-        </Provider>
+        </AuthProvider>
     );
 }
 

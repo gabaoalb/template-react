@@ -12,7 +12,6 @@ import {
     Stack,
     TextField,
     Typography,
-    CircularProgress,
     Grid,
     FormControlLabel,
     Divider,
@@ -25,12 +24,13 @@ import {
     VisibilityOff,
 } from "@mui/icons-material";
 import { authSchema, type AuthFormData } from "./schema";
-import { useAppDispatch } from "../../context/store/ReduxHooks";
-import { login } from "../../context/store/auth/AuthSlice";
+import { useAuth } from "../../context/auth/useAuth";
 
 function AuthPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const { login } = useAuth();
 
     const {
         register,
@@ -40,15 +40,13 @@ function AuthPage() {
         resolver: zodResolver(authSchema),
     });
 
-    const dispatch = useAppDispatch();
-
     const onSubmit = ({ email, password }: AuthFormData) => {
         setLoading(true);
         // Simula requisição
         setTimeout(() => {
             console.log("Login simulated:", { email, password });
             setLoading(false);
-            dispatch(login({ email, password }));
+            login({ email, password });
         }, 900);
     };
 

@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import type { ModalsIdentifiersType } from "../../context/modals/interface";
 import { useModal } from "../../context/modals/useModal";
+import { LoadingBackdrop } from "../loadingBackdrop/LoadingBackdrop";
 
 export function LazyModal({
     modalIdentifier,
@@ -18,7 +19,7 @@ export function LazyModal({
 
     return (
         <ErrorBoundary fallback={<>Error Boundary</>} onError={() => {}}>
-            <Suspense fallback={<>Loading ... </>}>
+            <Suspense fallback={<LoadingBackdrop />}>
                 {modalIdentifier ? (
                     <Component
                         open={isOpen}

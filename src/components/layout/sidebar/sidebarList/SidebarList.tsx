@@ -1,5 +1,4 @@
 import { useLocation } from "react-router";
-import { useAppSelector } from "../../../../context/store/ReduxHooks";
 import {
     isSidebarGroup,
     isSidebarItem,
@@ -14,9 +13,10 @@ import {
     ListItemText,
     Typography,
 } from "@mui/material";
+import { useLayout } from "../../../../context/layout/useLayout";
 
 function SidebarList({ sidebarItems }: { sidebarItems: SidebarElement[] }) {
-    const { leftDrawerOpen } = useAppSelector((state) => state.layout);
+    const { leftDrawerOpen } = useLayout();
 
     const location = useLocation();
     const currentPath = location.pathname;

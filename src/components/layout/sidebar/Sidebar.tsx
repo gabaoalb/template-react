@@ -1,12 +1,10 @@
 import { Box, Drawer } from "@mui/material";
-import { useAppSelector } from "../../../context/store/ReduxHooks";
 import { sidebarItems } from "./sidebar-items";
 import SidebarList from "./sidebarList/SidebarList";
+import { useLayout } from "../../../context/layout/useLayout";
 
 function Sidebar() {
-    const { appBarHeight, leftDrawerOpen, drawerWidth } = useAppSelector(
-        (state) => state.layout
-    );
+    const { appBarHeight, leftDrawerOpen, drawerWidth } = useLayout();
 
     return (
         <Box display="flex" flex={1} gridArea="sidebar">

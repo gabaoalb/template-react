@@ -11,15 +11,7 @@ import {
 } from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import HeaderIconButton from "../../buttons/headerIconButton/HeaderIconButton";
-import {
-    useAppDispatch,
-    useAppSelector,
-} from "../../../context/store/ReduxHooks";
-import {
-    DRAWER_WIDTH_OPEN,
-    toggleSidebar,
-} from "../../../context/store/layout/LayoutSlice";
-import type { RootState } from "../../../context/store/interface";
+
 import Search from "@mui/icons-material/Search";
 import {
     Fullscreen,
@@ -30,7 +22,9 @@ import {
 } from "@mui/icons-material";
 import UserAvatarButton from "../../buttons/userAvatarButton/UserAvatarButton";
 import { useState } from "react";
-import { logout } from "../../../context/store/auth/AuthSlice";
+import { useLayout } from "../../../context/layout/useLayout";
+import { useAuth } from "../../../context/auth/useAuth";
+import { DRAWER_WIDTH_OPEN } from "../../../context/layout/LayoutProvider";
 
 function Header() {
     // #region Hooks
@@ -39,14 +33,12 @@ function Header() {
 
     const theme = useTheme();
 
-    const dispatch = useAppDispatch();
+    const { logout } = useAuth();
 
-    const { leftDrawerOpen } = useAppSelector(
-        (state: RootState) => state.layout
-    );
+    const { leftDrawerOpen, toggleSidebar } = useLayout();
 
     const handleMenuClick = () => {
-        dispatch(toggleSidebar(!leftDrawerOpen));
+        toggleSidebar(!leftDrawerOpen);
     };
 
     const handleAvatarButtonClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -62,7 +54,7 @@ function Header() {
         _reason?: "backdropClick" | "escapeKeyDown",
         callback?: () => void
     ) => {
-        dispatch(logout());
+        logout();
         callback?.();
     };
 
