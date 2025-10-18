@@ -68,7 +68,7 @@ function AuthPage() {
                     mx: 2,
                 }}
             >
-                <CardContent sx={{ backgroundColor: "#14252f" }}>
+                <CardContent sx={{ backgroundColor: "#14252f", p: 5 }}>
                     <Stack
                         spacing={3}
                         component="form"
@@ -167,13 +167,10 @@ function AuthPage() {
                             variant="contained"
                             size="large"
                             disabled={loading}
+                            loading={loading}
                             sx={{ py: 1.5 }}
                         >
-                            {loading ? (
-                                <CircularProgress size={20} color="inherit" />
-                            ) : (
-                                "Sign in"
-                            )}
+                            Sign in
                         </Button>
 
                         <Divider />
