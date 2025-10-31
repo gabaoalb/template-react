@@ -3,8 +3,6 @@ import {
     Box,
     Grid,
     InputAdornment,
-    Menu,
-    MenuItem,
     TextField,
     Toolbar,
     useTheme,
@@ -21,41 +19,22 @@ import {
     Tune,
 } from "@mui/icons-material";
 import UserAvatarButton from "../../buttons/userAvatarButton/UserAvatarButton";
-import { useState } from "react";
 import { useLayout } from "../../../context/layout/useLayout";
-import { useAuth } from "../../../context/auth/useAuth";
 import { DRAWER_WIDTH_OPEN } from "../../../context/layout/LayoutProvider";
+import UserAvatarMenu from "../../menus/userAvatarMenu/UserAvatarMenu";
 
 function Header() {
     // #region Hooks
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-
     const theme = useTheme();
 
-    const { logout } = useAuth();
-
-    const { leftDrawerOpen, toggleSidebar } = useLayout();
+    const { leftDrawerOpen, toggleSidebar, setUserMenuAnchorEl } = useLayout();
 
     const handleMenuClick = () => {
         toggleSidebar(!leftDrawerOpen);
     };
 
     const handleAvatarButtonClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const handleLogout = (
-        _event: React.MouseEvent<HTMLElement> | object,
-        _reason?: "backdropClick" | "escapeKeyDown",
-        callback?: () => void
-    ) => {
-        logout();
-        callback?.();
+        setUserMenuAnchorEl(event.currentTarget);
     };
 
     return (
@@ -99,7 +78,6 @@ function Header() {
                     <Box />
                     <HeaderIconButton
                         color={"primary.dark"}
-                        backgroundColor={"rgb(20, 45, 56)"}
                         hoverBackgroundColor={theme.palette.primary.light}
                         onClick={handleMenuClick}
                     >
@@ -121,7 +99,6 @@ function Header() {
                                 endAdornment: (
                                     <HeaderIconButton
                                         color={"primary.dark"}
-                                        backgroundColor={"rgb(20, 45, 56)"}
                                         hoverBackgroundColor={
                                             theme.palette.primary.light
                                         }
@@ -141,7 +118,6 @@ function Header() {
                     <Grid>
                         <HeaderIconButton
                             color={"primary.dark"}
-                            backgroundColor={"rgb(20, 45, 56)"}
                             hoverBackgroundColor={theme.palette.primary.light}
                         >
                             <Sensors />
@@ -150,7 +126,6 @@ function Header() {
                     <Grid>
                         <HeaderIconButton
                             color={"secondary.dark"}
-                            backgroundColor={"rgb(20, 45, 56)"}
                             hoverBackgroundColor={theme.palette.secondary.light}
                         >
                             <Translate />
@@ -159,7 +134,6 @@ function Header() {
                     <Grid>
                         <HeaderIconButton
                             color={"warning.main"}
-                            backgroundColor={"rgb(20, 45, 56)"}
                             hoverBackgroundColor={"warning.light"}
                         >
                             <Notifications />
@@ -168,7 +142,6 @@ function Header() {
                     <Grid>
                         <HeaderIconButton
                             color={"secondary.dark"}
-                            backgroundColor={"rgb(20, 45, 56)"}
                             hoverBackgroundColor={theme.palette.secondary.light}
                         >
                             <Fullscreen />
@@ -179,24 +152,7 @@ function Header() {
                             id="user-avatar-button"
                             onClick={handleAvatarButtonClick}
                         />
-                        <Menu
-                            id="user-avatar-menu"
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
-                            slotProps={{
-                                list: {
-                                    "aria-labelledby": "user-avatar-button",
-                                },
-                            }}
-                            sx={{ mt: 1 }}
-                        >
-                            <MenuItem onClick={handleClose}>Profile</MenuItem>
-                            <MenuItem onClick={handleClose}>
-                                My account
-                            </MenuItem>
-                            <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                        </Menu>
+                        <UserAvatarMenu />
                     </Grid>
                 </Grid>
             </Toolbar>

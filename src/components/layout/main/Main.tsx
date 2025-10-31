@@ -16,7 +16,11 @@ function Main({ children }: PropsWithChildren) {
                 overflowY: "auto",
                 borderTopRightRadius: (t) => t.shape.borderRadius,
                 borderTopLeftRadius: (t) => t.shape.borderRadius,
-                backgroundColor: "rgb(14, 27, 35)",
+                // usa color-mix para clarear a cor (fallback: valor original)
+                backgroundColor: (t) =>
+                    t.palette.mode === "dark"
+                        ? `color-mix(in srgb, ${t.palette.secondary.dark} 50%, black 50%)`
+                        : `color-mix(in srgb, ${t.palette.secondary.light} 20%, white 80%)`,
                 marginLeft: `${drawerWidth}px`,
                 transition: (t) =>
                     t.transitions.create(["margin"], {

@@ -13,15 +13,6 @@ const theme = createTheme({
     shape: {
         borderRadius: 8,
     },
-    components: {
-        MuiCssBaseline: {
-            styleOverrides: `
-                body {
-                    background-color: rgb(6, 13, 18);
-                }
-            `,
-        },
-    },
 });
 
 export { theme };

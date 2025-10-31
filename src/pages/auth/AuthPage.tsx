@@ -66,7 +66,11 @@ function AuthPage() {
                     mx: 2,
                 }}
             >
-                <CardContent sx={{ backgroundColor: "#14252f", p: 5 }}>
+                <CardContent
+                    sx={{
+                        p: 5,
+                    }}
+                >
                     <Stack
                         spacing={3}
                         component="form"
@@ -150,11 +154,19 @@ function AuthPage() {
                             }}
                         />
 
-                        <Grid container justifyContent="space-between" pl={1}>
+                        <Grid
+                            container
+                            justifyContent="space-between"
+                            alignItems={"center"}
+                        >
                             <Box>
                                 <FormControlLabel
                                     control={<CheckBox />}
                                     label="Remember me"
+                                    sx={{
+                                        m: 0,
+                                        "& .MuiTypography-root": { ml: "5px" },
+                                    }}
                                 />
                             </Box>
                             <Button size="small">Forgot password?</Button>
